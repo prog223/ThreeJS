@@ -36,10 +36,3 @@ export const DecalTypes = {
     filterTab: "stylishShirt",
   },
 };
-
-// export const DownloadTypes = [
-//   {
-//     name: 'imgDownload',
-//     icon: 
-//   }
-// ]

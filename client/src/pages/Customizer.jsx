@@ -7,6 +7,7 @@ import state from '../store'
 import { slideAnimation, fadeAnimation } from '../config/motion'
 import { EditorTabs, FilterTabs, DecalTypes } from '../config/constants'
 import { downloadCanvasToImage, reader } from '../config/helpers'
+import { Toast } from '../config/toast'
 
 export const Customizer = () => {
   const snap = useSnapshot(state)
@@ -44,7 +45,10 @@ export const Customizer = () => {
   }
 
   const handleSubmit = async (type) => {
-    if (!prompt) return alert('Please enter a prompt')
+    if (!prompt) return Toast.fire({
+      icon: 'error',
+      title: 'Please enter a prompt'
+    })
 
     try {
       setGeneratingImg(true)
@@ -63,7 +67,10 @@ export const Customizer = () => {
 
       handleDecals(type, `data:image/png;base64,${data.photo}`)
     } catch (e) {
-      alert(e)
+      Toast.fire({
+        icon: 'error',
+        title: e
+      })
     } finally {
       setGeneratingImg(false)
       setActiveEditorTab('')
@@ -105,6 +112,11 @@ export const Customizer = () => {
       .then((result) => {
         handleDecals(type, result)
         setActiveEditorTab('')
+      }).catch((e) => {
+        Toast.fire({
+          icon: 'error',
+          title: 'Please upload file'
+        })
       })
   }
 
@@ -123,7 +135,7 @@ export const Customizer = () => {
                   <Tab
                     key={tab.name}
                     tab={tab}
-                    handleClick={() => setActiveEditorTab(tab.name)}
+                    handleClick={() => setActiveEditorTab(activeEditorTab === tab.name ? '' : tab.name)}
                   />
                 ))}
                 {generateTabContent()}
@@ -138,7 +150,7 @@ export const Customizer = () => {
             <CustomButton
               type='filled'
               title='Go Back'
-              handleClick={() => state.intro = true}
+              handleClick={() => { state.intro = true; }}
               customStyles='w-fit px-4 py-2.5 font-bold text-sm'
             ></CustomButton>
           </motion.div>

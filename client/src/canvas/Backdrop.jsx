@@ -13,10 +13,10 @@ export const Backdrop = () => {
             temporal
             scale={10}
             rotation={[Math.PI / 2, 0, 0]}
-            position={[0, 0, -0.14]}
+            position={[0, 0, -0.2]}
         >
             <RandomizedLight
-                amount={4}
+                amount={3}
                 radius={9}
                 intensity={0.55}
                 ambient={0.25}

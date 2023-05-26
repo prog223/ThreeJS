@@ -7,7 +7,6 @@ export const AIPicker = ({ prompt, setPrompt, generatingImg, handleSubmit }) => 
       <textarea
         className='aipicker-textarea'
         placeholder='Ask AI'
-        // value={prompt}
         rows={5}
         onChange={(e) => setPrompt(e.target.value)}
       />
